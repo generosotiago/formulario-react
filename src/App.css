@@ -1,10 +1,17 @@
+body {
+  background-image: url('../public/wallpaper.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
 .container {
+  background-color: rgba(0, 0, 0, 0.555); /* Cor de fundo com transparência para melhor legibilidade do conteúdo */
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #000;
+ /* background-color: #000;*/
 }
 
 .formulario-container {
@@ -28,7 +35,7 @@
 }
 
 .input {
-  width: 100%;
+  width: 95%;
   padding: 10px;
   background-color: transparent;
   border: none;
@@ -126,8 +133,10 @@ input:checked + .slider:before {
   color: #fff;
 }
 
+.modo-escuro
+
 .modo-escuro .input::placeholder {
-  color: #aaa;
+  color: #ff0000;
 }
 
 .modo-escuro .toggle-label {
@@ -140,4 +149,7 @@ input:checked + .slider:before {
 
 .modo-escuro input:checked + .slider {
   background-color: #2196F3;
+}
+.modo-escuro .input {
+  color: #fff; /* Cor do texto digitado no modo escuro */
 }
