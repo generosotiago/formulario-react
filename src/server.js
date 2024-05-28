@@ -22,7 +22,7 @@ const FormData = mongoose.model('FormData', formDataSchema);
 app.use(express.json());
 
 // Endpoint para receber os dados do formulário
-app.post('/api/', async (req, res) => {
+app.post('/api', async (req, res) => {
   const formData = new FormData(req.body);
   try {
     await formData.save();
@@ -34,7 +34,7 @@ app.post('/api/', async (req, res) => {
 });
 
 // Endpoint para buscar todos os dados
-app.post('/api/dados', async (req, res) => {
+app.post('/api', async (req, res) => {
   try {
     const dados = req.body;
     res.status(200).json(dados);
