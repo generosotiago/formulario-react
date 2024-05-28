@@ -34,9 +34,9 @@ app.post('/api/', async (req, res) => {
 });
 
 // Endpoint para buscar todos os dados
-app.get('/api/dados', async (req, res) => {
+app.post('/api/dados', async (req, res) => {
   try {
-    const dados = await FormData.find();
+    const dados = req.body;
     res.status(200).json(dados);
   } catch (error) {
     console.error('Erro ao buscar os dados:', error);
