@@ -35,7 +35,7 @@ function Formulario() {
 
   try {
     // Enviar os dados para a API no Heroku
-    const response = await fetch('https://sua-api-no-heroku.herokuapp.com/seu-endpoint', {
+    const response = await fetch('https://formulario-project-e43a62d91655.herokuapp.com/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
