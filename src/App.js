@@ -28,7 +28,7 @@ function Formulario() {
 
     try {
       // Enviar os dados para a API no Heroku
-      const response = await fetch('/api', {
+      const response = await fetch('/api/formulario', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
