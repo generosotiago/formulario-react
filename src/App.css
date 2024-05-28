@@ -1,38 +1,143 @@
-.App {
-  text-align: center;
+.container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #000;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.formulario-container {
+  position: relative;
+  z-index: 1; /* Certifica-se de que o formulário esteja na frente do fundo */
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  width: 400px;
+  transition: background-color 0.3s, color 0.3s;
+  background-color: #fff; /* Fundo branco */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.formulario {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+.campo {
+  margin-bottom: 20px;
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  color: #000;
+  outline: none;
+}
+
+.input::placeholder {
+  color: #aaa;
+}
+
+.botao {
+  width: 100%;
+  padding: 10px;
+  background-color: #4CAF50;
   color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.App-link {
-  color: #61dafb;
+.botao:hover {
+  background-color: #45a049;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.mensagem-erro {
+  color: red;
+  margin-top: 5px;
+}
+
+.input-invalido {
+  border-color: red;
+}
+
+.toggle-container {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  z-index: 2; /* Certifica-se de que o switch esteja na frente do formulário */
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #000;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #000;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+/* Estilos para o modo escuro */
+.modo-escuro .formulario-container {
+  background-color: #333;
+  color: #fff;
+}
+
+.modo-escuro .input::placeholder {
+  color: #aaa;
+}
+
+.modo-escuro .toggle-label {
+  color: #fff;
+}
+
+.modo-escuro .slider {
+  background-color: #555;
+}
+
+.modo-escuro input:checked + .slider {
+  background-color: #2196F3;
 }
