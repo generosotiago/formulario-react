@@ -8,119 +8,119 @@ function Formulario() {
   const [cpf, setCpf] = useState('');
   const [cpfValido, setCpfValido] = useState(true); // Estado para controlar a validade do CPF
   const [modoEscuro, setModoEscuro] = useState(false); // Estado para controlar o modo escuro
+  const [erroEnvio, setErroEnvio] = useState(null); // Estado para armazenar mensagens de erro de envio
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-
-    // Lógica para validar o formulário e enviar os dados
-    // Supondo que a validação do formulário seja bem-sucedida
-
-    // Redirecionar para outra página após o envio do formulário
-    window.location.href = '/outra-pagina';
-  };
-  const handleSubmits  = async (event) => {
-  if (!validarCPF(cpf)) {
-    setCpfValido(false);
-    return;
-  }
-  setCpfValido(true);
-
-  // Dados do formulário
-  const formData = {
-    nome: nome,
-    email: email,
-    dataNascimento: dataNascimento,
-    cpf: cpf
-  };
-
-  try {
-    // Enviar os dados para a API no Heroku
-    const response = await fetch('https://formulario-project-e43a62d91655.herokuapp.com/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData)
-    });
-
-    // Verificar se a requisição foi bem-sucedida
-    if (response.ok) {
-      alert('Dados enviados com sucesso!');
-    } else {
-      alert('Ocorreu um erro ao enviar os dados.');
+    if (!validarCPF(cpf)) {
+      setCpfValido(false);
+      return;
     }
-  } catch (error) {
-    console.error('Erro ao enviar os dados:', error);
-    alert('Ocorreu um erro ao enviar os dados.');
-  }
-};
+    setCpfValido(true);
 
-// Função para validar CPF
-const validarCPF = (strCPF) => {
-  // Implemente a função de validação do CPF aqui
-  return true; // Retorno temporário
-};
+    // Dados do formulário
+    const formData = {
+      nome: nome,
+      email: email,
+      dataNascimento: dataNascimento,
+      cpf: cpf
+    };
 
-return (
-  <div className={`container ${modoEscuro ? 'modo-escuro' : ''}`}>
-    <div className="formulario-container">
-      <h2>Formulário</h2>
-      <form onSubmit={handleSubmit} className="formulario">
-        <div className="campo">
-          <input
-            type="text"
-            placeholder="Nome"
-            value={nome}
-            onChange={(event) => setNome(event.target.value)}
-            className="input"
-            required
-          />
-        </div>
-        <div className="campo">
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            className="input"
-            required
-          />
-        </div>
-        <div className="campo">
-          <input
-            type="date"
-            placeholder="Data de Nascimento"
-            value={dataNascimento}
-            onChange={(event) => setDataNascimento(event.target.value)}
-            className="input"
-            required
-          />
-        </div>
-        <div className="campo">
-          <input
-            type="text"
-            placeholder="CPF"
-            value={cpf}
-            onChange={(event) => setCpf(event.target.value)}
-            className={`input ${!cpfValido ? 'input-invalido' : ''}`}
-            required
-          />
-          {!cpfValido && <p className="mensagem-erro">CPF inválido</p>}
-        </div>
-        <button type="submit" className="botao">
-          Enviar
-        </button>
-      </form>
+    try {
+      // Enviar os dados para a API no Heroku
+      const response = await fetch('https://formulario-project-e43a62d91655.herokuapp.com/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      // Verificar se a requisição foi bem-sucedida
+      if (response.ok) {
+        alert('Dados enviados com sucesso!');
+        // Limpar campos do formulário após envio bem-sucedido
+        setNome('');
+        setEmail('');
+        setDataNascimento('');
+        setCpf('');
+      } else {
+        const errorData = await response.json();
+        setErroEnvio(errorData.message || 'Ocorreu um erro ao enviar os dados.');
+      }
+    } catch (error) {
+      console.error('Erro ao enviar os dados:', error);
+      setErroEnvio('Ocorreu um erro ao enviar os dados.');
+    }
+  };
+
+  // Função para validar CPF
+  const validarCPF = (strCPF) => {
+    // Implemente a função de validação do CPF aqui
+    return true; // Retorno temporário
+  };
+
+  return (
+    <div className={`container ${modoEscuro ? 'modo-escuro' : ''}`}>
+      <div className="formulario-container">
+        <h2>Formulário</h2>
+        {erroEnvio && <p className="mensagem-erro">{erroEnvio}</p>}
+        <form onSubmit={handleSubmit} className="formulario">
+          <div className="campo">
+            <input
+              type="text"
+              placeholder="Nome"
+              value={nome}
+              onChange={(event) => setNome(event.target.value)}
+              className="input"
+              required
+            />
+          </div>
+          <div className="campo">
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              className="input"
+              required
+            />
+          </div>
+          <div className="campo">
+            <input
+              type="date"
+              placeholder="Data de Nascimento"
+              value={dataNascimento}
+              onChange={(event) => setDataNascimento(event.target.value)}
+              className="input"
+              required
+            />
+          </div>
+          <div className="campo">
+            <input
+              type="text"
+              placeholder="CPF"
+              value={cpf}
+              onChange={(event) => setCpf(event.target.value)}
+              className={`input ${!cpfValido ? 'input-invalido' : ''}`}
+              required
+            />
+            {!cpfValido && <p className="mensagem-erro">CPF inválido</p>}
+          </div>
+          <button type="submit" className="botao">
+            Enviar
+          </button>
+        </form>
+      </div>
+      <div className="toggle-container">
+        <label className="switch">
+          <input type="checkbox" checked={modoEscuro} onChange={() => setModoEscuro(!modoEscuro)} />
+          <span className="slider round"></span>
+        </label>
+        <span className="toggle-label">{modoEscuro ? 'Modo Claro' : 'Modo Escuro'}</span>
+      </div>
     </div>
-    <div className="toggle-container">
-      <label className="switch">
-        <input type="checkbox" checked={modoEscuro} onChange={() => setModoEscuro(!modoEscuro)} />
-        <span className="slider round"></span>
-      </label>
-      <span className="toggle-label">{modoEscuro ? 'Modo Claro' : 'Modo Escuro'}</span>
-    </div>
-  </div>
-);
+  );
 }
-export default Formulario;
 
+export default Formulario;
