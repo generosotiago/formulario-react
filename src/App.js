@@ -6,6 +6,7 @@ function Formulario() {
   const [email, setEmail] = useState('');
   const [dataNascimento, setDataNascimento] = useState('');
   const [cpf, setCpf] = useState('');
+  const [opcao, setOpcao] = useState(''); // Estado para armazenar a opção selecionada
   const [cpfValido, setCpfValido] = useState(true); // Estado para controlar a validade do CPF
   const [modoEscuro, setModoEscuro] = useState(false); // Estado para controlar o modo escuro
   const [erroEnvio, setErroEnvio] = useState(null); // Estado para armazenar mensagens de erro de envio
@@ -23,7 +24,8 @@ function Formulario() {
       nome: nome,
       email: email,
       dataNascimento: dataNascimento,
-      cpf: cpf
+      cpf: cpf,
+      opcao: opcao // Adicionando a opção selecionada ao objeto formData
     };
 
     try {
@@ -44,6 +46,7 @@ function Formulario() {
         setEmail('');
         setDataNascimento('');
         setCpf('');
+        setOpcao('');
       } else {
         const errorData = await response.json();
         setErroEnvio(errorData.message || 'Ocorreu um erro ao enviar os dados.');
@@ -63,7 +66,7 @@ function Formulario() {
   return (
     <div className={`container ${modoEscuro ? 'modo-escuro' : ''}`}>
       <div className="formulario-container">
-        <h2>Formulário</h2>
+        <h2>Formulário ADS SENAI - primeiro semestre - churrasco SEM DROGA</h2>
         {erroEnvio && <p className="mensagem-erro">{erroEnvio}</p>}
         <form onSubmit={handleSubmit} className="formulario">
           <div className="campo">
@@ -106,6 +109,19 @@ function Formulario() {
               required
             />
             {!cpfValido && <p className="mensagem-erro">CPF inválido</p>}
+          </div>
+          <div className="campo">
+            <select
+              value={opcao}
+              onChange={(event) => setOpcao(event.target.value)}
+              className="input"
+              required
+            >
+              <option value="">Escolha uma opção</option>
+              <option value="Churrasco">Churrasco</option>
+              <option value="Pedir comida">Pedir comida</option>
+              <option value="Casa da cerveja">Casa da cerveja</option>
+            </select>
           </div>
           <button type="submit" className="botao">
             Enviar
