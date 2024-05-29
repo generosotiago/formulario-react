@@ -1,13 +1,16 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
+const cors = require('cors'); // Importe o middleware CORS
+
+app.use(cors());
 
 // Conexão com o MongoDB
-const dbURI = 'mongodb+srv://tiagogeneroso47:VTwZjvGgcTrQ7dl7@formulario.98dkg0j.mongodb.net/?retryWrites=true&w=majority&appName=Formulario';
+const dbURI = "mongodb+srv://tiagogeneroso47:VTwZjvGgcTrQ7dl7@formulario.98dkg0j.mongodb.net/formulario?retryWrites=true&w=majority";
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Conectado ao MongoDB'))
-  .catch(err => console.log('Erro ao conectar ao MongoDB:', err));
+  .catch(err => console.error('Erro ao conectar ao MongoDB:', err));
 
 // Definir o esquema e o modelo do Mongoose
 const formDataSchema = new mongoose.Schema({
@@ -21,26 +24,19 @@ const FormData = mongoose.model('FormData', formDataSchema);
 
 app.use(express.json());
 
-// Endpoint para receber os dados do formulário
+app.get('/', (req, res) => {
+  res.send('Bem-vindo à nossa aplicação!');
+});
+
+// Endpoint para receber os dados do formulário e salvar no MongoDB
 app.post('/api/formulario', async (req, res) => {
   const formData = new FormData(req.body);
   try {
     await formData.save();
-    res.status(200).send({ message: 'Dados recebidos com sucesso!' });
+    res.status(200).send({ message: 'Dados recebidos com sucesso e salvos no MongoDB Atlas!' });
   } catch (error) {
     console.error('Erro ao salvar os dados:', error);
-    res.status(500).send({ message: 'Erro ao salvar os dados' });
-  }
-});
-
-// Endpoint para buscar todos os dados
-app.get('/api/dados', async (req, res) => {
-  try {
-    const dados = await FormData.find();
-    res.status(200).json(dados);
-  } catch (error) {
-    console.error('Erro ao buscar os dados:', error);
-    res.status(500).send({ message: 'Erro ao buscar os dados' });
+    res.status(500).send({ message: 'Erro ao salvar os dados no MongoDB Atlas' });
   }
 });
 
