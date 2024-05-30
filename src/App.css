@@ -2,6 +2,7 @@ body {
   background-image: url('../public/wallpaper.jpg');
   background-size: cover;
   background-position: center;
+  background-size: auto;
 }
 
 .container {
@@ -34,13 +35,20 @@ body {
   margin-bottom: 20px;
 }
 
+.titulo {
+  margin-top: 0%;
+  font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  text-align: center;
+}
+
 .input {
   width: 95%;
   padding: 10px;
   background-color: transparent;
   border: none;
   border-bottom: 2px solid #ccc;
-  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #000000;
   outline: none;
 }
 
@@ -126,6 +134,61 @@ input:focus + .slider {
 input:checked + .slider:before {
   transform: translateX(26px);
 }
+
+@keyframes checkmark {
+  0% {
+    stroke-dashoffset: 50;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.check-animation {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 52px;
+  height: 52px;
+  animation: checkmark 0.6s ease forwards;
+}
+
+.checkmark__circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 2;
+  stroke-miterlimit: 10;
+  stroke: #4bb71b;
+  fill: none;
+}
+
+.checkmark__check {
+  transform-origin: 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: checkmark 0.3s 0.6s ease forwards;
+}
+
+.formularioenviado{
+
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  height: 100vh
+}
+
+.textformularioenviado{
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  text-align: center;
+  padding: 20px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  
+}
+
 
 /* Estilos para o modo escuro */
 .modo-escuro .formulario-container {
