@@ -14,10 +14,10 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
 
 // Definir o esquema e o modelo do Mongoose
 const formDataSchema = new mongoose.Schema({
-  nome: { type: String, required: true },
-  email: { type: String, required: true },
-  dataNascimento: { type: Date, required: true },
-  cpf: { type: String, required: true }
+  nome: { type: String, required: false },
+  email: { type: String, required: false },
+  dataNascimento: { type: Date, required: false },
+  cpf: { type: String, required: false }
 });
 
 const FormData = mongoose.model('FormData', formDataSchema);

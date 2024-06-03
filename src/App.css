@@ -2,28 +2,26 @@ body {
   background-image: url('../public/wallpaper.jpg');
   background-size: cover;
   background-position: center;
-  background-size: auto;
 }
 
 .container {
-  background-color: rgba(0, 0, 0, 0.555); /* Cor de fundo com transparência para melhor legibilidade do conteúdo */
+  background-color: rgba(0, 0, 0, 0.555);
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
- /* background-color: #000;*/
 }
 
 .formulario-container {
   position: relative;
-  z-index: 1; /* Certifica-se de que o formulário esteja na frente do fundo */
+  z-index: 1;
   border: 1px solid #ccc;
   border-radius: 10px;
   padding: 20px;
   width: 400px;
   transition: background-color 0.3s, color 0.3s;
-  background-color: #fff; /* Fundo branco */
+  background-color: #fff;
 }
 
 .formulario {
@@ -36,8 +34,8 @@ body {
 }
 
 .titulo {
-  margin-top: 0%;
-  font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  margin-top: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   text-align: center;
 }
 
@@ -48,7 +46,7 @@ body {
   border: none;
   border-bottom: 2px solid #ccc;
   font-family: Arial, Helvetica, sans-serif;
-  color: #000000;
+  color: #000;
   outline: none;
 }
 
@@ -83,7 +81,7 @@ body {
   position: absolute;
   bottom: 10px;
   right: 10px;
-  z-index: 2; /* Certifica-se de que o switch esteja na frente do formulário */
+  z-index: 2;
 }
 
 .switch {
@@ -107,7 +105,7 @@ body {
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  transition: .4s;
+  transition: 0.4s;
   border-radius: 34px;
 }
 
@@ -119,7 +117,7 @@ body {
   left: 4px;
   bottom: 4px;
   background-color: white;
-  transition: .4s;
+  transition: 0.4s;
   border-radius: 50%;
 }
 
@@ -135,60 +133,67 @@ input:checked + .slider:before {
   transform: translateX(26px);
 }
 
-@keyframes checkmark {
+@keyframes stroke {
   0% {
-    stroke-dashoffset: 50;
+    stroke-dashoffset: 166;
   }
   100% {
     stroke-dashoffset: 0;
   }
 }
 
+@keyframes scale {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 .check-animation {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  width: 52px;
-  height: 52px;
-  animation: checkmark 0.6s ease forwards;
+  width: 100px;
+  height: 100px;
+  margin-bottom: 20px;
+}
+
+.checkmark {
+  width: 100%;
+  height: 100%;
 }
 
 .checkmark__circle {
+  stroke: #4bb71b;
+  stroke-width: 2;
   stroke-dasharray: 166;
   stroke-dashoffset: 166;
-  stroke-width: 2;
-  stroke-miterlimit: 10;
-  stroke: #4bb71b;
-  fill: none;
+  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards, scale 0.3s ease-in-out 0.6s both;
 }
 
 .checkmark__check {
-  transform-origin: 50%;
+  stroke: #4bb71b;
+  stroke-width: 2;
   stroke-dasharray: 48;
   stroke-dashoffset: 48;
-  animation: checkmark 0.3s 0.6s ease forwards;
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.9s forwards;
 }
 
-.formularioenviado{
-
+.formularioenviado {
   display: flex;
-  position: relative;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px;
-  height: 100vh
+  height: 100vh;
 }
 
-.textformularioenviado{
+.textformularioenviado {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   text-align: center;
   padding: 20px;
   background-color: white;
   border: 1px solid #ccc;
   border-radius: 10px;
-  
 }
-
 
 /* Estilos para o modo escuro */
 .modo-escuro .formulario-container {
@@ -196,10 +201,8 @@ input:checked + .slider:before {
   color: #fff;
 }
 
-.modo-escuro
-
 .modo-escuro .input::placeholder {
-  color: #ff0000;
+  color: #aaa;
 }
 
 .modo-escuro .toggle-label {
@@ -213,6 +216,7 @@ input:checked + .slider:before {
 .modo-escuro input:checked + .slider {
   background-color: #2196F3;
 }
+
 .modo-escuro .input {
   color: #fff; /* Cor do texto digitado no modo escuro */
 }
