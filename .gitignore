@@ -1,5 +1,10 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+
+.env
+MONGODB_URI="mongodb+srv://tiagogeneroso47:VTwZjvGgcTrQ7dl7@formulario.98dkg0j.mongodb.net/formulario?retryWrites=true&w=majority"
+PORT=3001
+
 # dependencies
 /node_modules
 /.pnp
